@@ -1,0 +1,16 @@
+templates:
+  - template: config.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/config/@JavaModNameConfig.java"
+  - template: config_init.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/config/@JavaModNameConfigInit.java"
+  - template: serializer.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/config/serializer/ConfigSerializer.java"
+  - template: gson_serializer.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/config/serializer/GsonSerializer.java"
+    condition: hasJsonExtension()
+  - template: toml_serializer.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/config/serializer/TomlSerializer.java"
+    condition: hasTomlExtension()
+  - template: yaml_serializer.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/config/serializer/YamlSerializer.java"
+    condition: hasYamlExtension()

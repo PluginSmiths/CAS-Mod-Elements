@@ -1,5 +1,5 @@
 {
-  "id": "cas_me",
+  "id": "cas_mod_elements",
   "weight": 30,
   "javaplugin": "net.ovonsame.cas.Launcher",
   "minversion": 0,
