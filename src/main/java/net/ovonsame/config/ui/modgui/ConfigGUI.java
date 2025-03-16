@@ -124,7 +124,7 @@ public class ConfigGUI extends ModElementGUI<Config> implements IBlocklyPanelHol
    public void openInEditingMode(Config config) {
       this.configFileName.setText(config.configFileName);
       this.fileExtension.setSelectedItem(config.fileExtension);
-      this.blocklyPanel.setXMLDataOnly(config.configsxml);
+      this.blocklyPanel.setXML(config.configsxml);
       this.blocklyPanel.addTaskToRunAfterLoaded(() -> {
          this.blocklyPanel.clearWorkspace();
          this.blocklyPanel.setXML(config.configsxml);

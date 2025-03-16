@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.lang.*;
 
 public class ModdedRecipe extends GeneratableElement {
+    public static final String[] recipes = new String[]{"Cutting", "Cooking", "Compacting", "Crushing", "Deploying", "Emptying", "Filling", "Haunting", "ItemApplication",
+            "Milling", "Mixing", "Pressing", "SandpaperPolishing", "Splashing"};
     public String recipeType;
 
     //common fields
