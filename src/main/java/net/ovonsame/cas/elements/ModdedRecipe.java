@@ -6,43 +6,18 @@ import net.mcreator.element.parts.Sound;
 import net.mcreator.workspace.elements.ModElement;
 import net.mcreator.workspace.references.ModElementReference;
 
-import javax.swing.*;
 import java.lang.*;
 
 public class ModdedRecipe extends GeneratableElement {
-    public static final String[] recipes = new String[]{"Cutting", "Cooking", "Compacting", "Crushing", "Deploying", "Emptying", "Filling", "Haunting", "ItemApplication",
-            "Milling", "Mixing", "Pressing", "SandpaperPolishing", "Splashing"};
+    public static final String[] recipes = new String[]{"cutting", "cooking", "compacting", "crushing", "deploying", "emptying", "filling", "haunting", "item_application",
+            "milling", "mixing", "pressing", "sandpaper_polishing", "splashing", "cutting", "cooking"};
     public String recipeType;
 
-    //common fields
-    public int count;
-
-    //cutting fields
-    public MItemBlock cuttinginput;
-    public MItemBlock cuttingoutput;
-    public int cuttingchance;
-    public String cuttingaction;
-    public Sound cuttingsound;
-
-    //cooking fields
-    public MItemBlock cookingoutput;
-    @ModElementReference public MItemBlock[] cookinginput;
-    public int cookingtime;
-    public int cookingxp;
-    public String cookingbook;
-
-    @ModElementReference public MItemBlock[] result;
-    @ModElementReference public MItemBlock[] ingredients;
-
-    public int amount_ingredients;
-    public int amount_result;
-
-    public float chance;
     public int processing_time;
     public float experience;
     @ModElementReference public Sound sound;
 
-    @ModElementReference public JComboBox<String> list = new JComboBox<>(new String[]{});
+    public String list;
 
     public ModdedRecipe(ModElement element) {
         super(element);
@@ -52,4 +27,25 @@ public class ModdedRecipe extends GeneratableElement {
         super.setModElement(element);
     }
 
+    public static class RecipeResult {
+        public MItemBlock item;
+        public int amount;
+        public float chance;
+
+        public RecipeResult() {
+            this.amount = 1;
+            this.chance = 0.5f;
+            this.item = null;
+        }
+    }
+
+    public static class RecipeIngredient {
+        public MItemBlock item;
+        public int amount;
+
+        public RecipeIngredient() {
+            this.amount = 1;
+            this.item = null;
+        }
+    }
 }

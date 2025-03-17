@@ -10,7 +10,7 @@ public class PluginElementTypes {
 
     public static void load() {
         MODDED_RECIPE = register(
-                new ModElementType<>("modded_recipe", (Character) null, ModdedRecipeGUI::new, ModdedRecipe.class)
+                new ModElementType<>("modded_recipe", (Character) null, ModdedRecipeMain::new, ModdedRecipe.class)
         );
     }
 
