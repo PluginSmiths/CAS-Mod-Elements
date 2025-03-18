@@ -16,7 +16,9 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
     private final CardLayout card_layout = new CardLayout();
     private final JPanel recipe_container = new JPanel(card_layout);
     private final JComboBox<String> recipe_type = new JComboBox<>(ModdedRecipe.recipes);
-    private final Map<String, ModdedRecipeBase> recipe_GUIs = new HashMap<>();
+    private final Map<String, ModdedRecipeBase> recipe_GUIs = new HashMap<>(
+            Map.of("cutting", new CuttingRecipe(mcreator, modElement, isEditingMode()))
+    );
 
     public ModdedRecipeMain(MCreator mcreator, ModElement modElement, boolean editingMode) {
         super(mcreator, modElement, editingMode);
@@ -33,8 +35,6 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
         type_panel.add(recipe_type);
 
         recipe_container.add(type_panel);
-
-        recipe_GUIs.put("cutting", new CuttingRecipe(mcreator, modElement, isEditingMode()));
 
         String selectedType = (String) recipe_type.getSelectedItem();
         ModdedRecipeBase selectedGUI = recipe_GUIs.get(selectedType);
