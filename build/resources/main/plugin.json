@@ -11,11 +11,12 @@
     202400115821,
     202300499999,
     202300400000,
-    2024003
+    2024003,
+    202500199999
   ],
   "info": {
     "name": "Creating addons support - Mod Elements",
-    "version": "1.0",
+    "version": "1",
     "description": "Additional plugin for CAS that adds Mod elements",
     "author": "OVONSAME",
     "credits": "Made by OVONSAME, jcm23 and Maxhaa",

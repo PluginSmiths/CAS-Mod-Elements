@@ -1,6 +1,7 @@
 package net.ovonsame.cas.elements;
 
 import net.mcreator.ui.MCreator;
+import net.mcreator.ui.init.L10N;
 import net.mcreator.ui.modgui.ModElementGUI;
 import net.mcreator.ui.validation.AggregatedValidationResult;
 import net.mcreator.workspace.elements.ModElement;
@@ -12,10 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
-    private final CardLayout cardLayout = new CardLayout();
-    private final JPanel recipeContainer = new JPanel(cardLayout);
-    private final JComboBox<String> recipeType = new JComboBox<>(ModdedRecipe.recipes);
-    private final Map<String, ModdedRecipeBase> recipeGUIs = new HashMap<>();
+    private final CardLayout card_layout = new CardLayout();
+    private final JPanel recipe_container = new JPanel(card_layout);
+    private final JComboBox<String> recipe_type = new JComboBox<>(ModdedRecipe.recipes);
+    private final Map<String, ModdedRecipeBase> recipe_GUIs = new HashMap<>();
 
     public ModdedRecipeMain(MCreator mcreator, ModElement modElement, boolean editingMode) {
         super(mcreator, modElement, editingMode);
@@ -25,40 +26,54 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
 
     @Override
     protected void initGUI() {
-        JPanel selectionPage = new JPanel(new BorderLayout(10, 10));
-        JPanel typePanel = new JPanel(new GridLayout(1, 2, 10, 2));
-        typePanel.add(new JLabel("Select Recipe Type:"));
-        typePanel.add(recipeType);
-        selectionPage.add(typePanel, BorderLayout.CENTER);
-        addPage(selectionPage);
+        JPanel type_panel = new JPanel(new GridLayout(1, 1, 10, 2));
+        JPanel recipe_panel = new JPanel(new GridLayout(2, 1, 10, 2));
 
-        // Добавляем рецепты
-        recipeGUIs.put("Cutting", new CuttingRecipe(mcreator, modElement, isEditingMode()));
+        type_panel.add(recipe_type);
+        type_panel.add(L10N.label("elementgui." + this.recipe_type.getSelectedItem() + ".desc"));
 
-        for (Map.Entry<String, ModdedRecipeBase> entry : recipeGUIs.entrySet()) {
-            recipeContainer.add(entry.getValue(), entry.getKey());
+        recipe_container.add(type_panel);
+
+        recipe_GUIs.put("cutting", new CuttingRecipe(mcreator, modElement, isEditingMode()));
+
+        String selectedType = (String) recipe_type.getSelectedItem();
+        ModdedRecipeBase selectedGUI = recipe_GUIs.get(selectedType);
+        if (selectedGUI != null) {
+            recipe_panel.add(selectedGUI, selectedType);
+        } else {
+            System.out.println("Selected recipe type not found in recipe_GUIs: " + selectedType);
         }
 
-        addPage(recipeContainer);
+        recipe_container.add(recipe_panel);
+        addPage(recipe_container);
 
-        recipeType.addActionListener(e -> cardLayout.show(recipeContainer, (String) recipeType.getSelectedItem()));
+        recipe_type.addActionListener(e -> {
+            card_layout.show(recipe_container, (String) recipe_type.getSelectedItem());
+        });
     }
 
     @Override
     public void openInEditingMode(ModdedRecipe recipe) {
-        recipeType.setSelectedItem(recipe.recipeType);
-        recipeGUIs.get(recipe.recipeType).openInEditingMode(recipe);
+        recipe_type.setSelectedItem(recipe.recipe_type);
+        ModdedRecipeBase selectedGUI = recipe_GUIs.get(recipe.recipe_type);
+        if (selectedGUI != null) {
+            selectedGUI.openInEditingMode(recipe);
+        }
     }
 
     @Override
     public ModdedRecipe getElementFromGUI() {
-        String selectedType = (String) recipeType.getSelectedItem();
-        return recipeGUIs.get(selectedType).getElementFromGUI();
+        String selectedType = (String) recipe_type.getSelectedItem();
+        ModdedRecipeBase recipe_base = recipe_GUIs.get(selectedType);
+
+        ModdedRecipe recipe = recipe_base.getElementFromGUI();
+        recipe.recipe_type = selectedType;
+
+        return recipe;
     }
 
     @Override
     protected AggregatedValidationResult validatePage(int page) {
         return new AggregatedValidationResult();
     }
-
 }

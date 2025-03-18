@@ -7,18 +7,23 @@ plugins {
 repositories {
     mavenCentral()
     maven { url "https://repo.gradle.org/gradle/libs-releases" }
-    maven { url "https://jitpack.io" }
     flatDir { dirs mcreator_path + '/lib' }
 }
 
 group = 'net.ovonsame'
 version = new JsonSlurper().parse(file('src/main/resources/plugin.json'))['info']['version']
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
-
 dependencies {
-    implementation ('com.github.MCreator:MCreator:master')
-    implementation 'org.apache.logging.log4j:log4j-core:3.0.0-beta3'
+    implementation project(':MCreator')
+    afterEvaluate {
+        project(":MCreator").afterEvaluate {
+            def deps = configurations.named("implementation").get().dependencies.toList()
+            deps.each {
+                dependencies.add("implementation", it)
+            }
+        }
+    }
+    implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
     implementation 'jakarta.annotation:jakarta.annotation-api:3.0.0'
 }
 

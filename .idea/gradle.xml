@@ -8,8 +8,8 @@
         <option name="gradleJvm" value="#JAVA_HOME" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/../../../../../Program Files/Pylo/MCreator" />
             <option value="$PROJECT_DIR$" />
+            <option value="F:/MCreator" />
           </set>
         </option>
       </GradleProjectSettings>

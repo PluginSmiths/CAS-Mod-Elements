@@ -11,10 +11,10 @@ import java.lang.*;
 public class ModdedRecipe extends GeneratableElement {
     public static final String[] recipes = new String[]{"cutting", "cooking", "compacting", "crushing", "deploying", "emptying", "filling", "haunting", "item_application",
             "milling", "mixing", "pressing", "sandpaper_polishing", "splashing", "cutting", "cooking"};
-    public String recipeType;
+    public String recipe_type;
 
     public int processing_time;
-    public float experience;
+    public int experience;
     @ModElementReference public Sound sound;
 
     public String list;
@@ -33,18 +33,8 @@ public class ModdedRecipe extends GeneratableElement {
         public float chance;
 
         public RecipeResult() {
-            this.amount = 1;
-            this.chance = 0.5f;
-            this.item = null;
-        }
-    }
-
-    public static class RecipeIngredient {
-        public MItemBlock item;
-        public int amount;
-
-        public RecipeIngredient() {
-            this.amount = 1;
+            this.amount = 0;
+            this.chance = 0f;
             this.item = null;
         }
     }
