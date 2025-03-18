@@ -27,10 +27,10 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
     @Override
     protected void initGUI() {
         JPanel type_panel = new JPanel(new GridLayout(1, 1, 10, 2));
-        JPanel recipe_panel = new JPanel(new GridLayout(2, 1, 10, 2));
+        JPanel recipe_panel = new JPanel(new GridLayout(1, 2, 10, 2));
 
-        type_panel.add(recipe_type);
         type_panel.add(L10N.label("elementgui." + this.recipe_type.getSelectedItem() + ".desc"));
+        type_panel.add(recipe_type);
 
         recipe_container.add(type_panel);
 
@@ -40,14 +40,12 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
         ModdedRecipeBase selectedGUI = recipe_GUIs.get(selectedType);
         if (selectedGUI != null) {
             recipe_panel.add(selectedGUI, selectedType);
-        } else {
-            System.out.println("Selected recipe type not found in recipe_GUIs: " + selectedType);
         }
 
         recipe_container.add(recipe_panel);
         addPage(recipe_container);
 
-        recipe_type.addActionListener(e -> card_layout.show(recipe_container, (String) recipe_type.getSelectedItem()));
+        recipe_type.addActionListener(e -> updateUI());
     }
 
     @Override
