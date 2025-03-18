@@ -13,7 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ModdedRecipeBase extends ModElementGUI<ModdedRecipe> {
-    private final ValidationGroup page1group = new ValidationGroup();
+    private final ValidationGroup page = new ValidationGroup();
 
     private final CardLayout recipes_panel_layout = new CardLayout();
     private final JPanel main_panel = new JPanel(recipes_panel_layout);
@@ -79,8 +79,8 @@ public class ModdedRecipeBase extends ModElementGUI<ModdedRecipe> {
 
     @Override
     protected AggregatedValidationResult validatePage(int page) {
-        if(page==1) {
-            return new AggregatedValidationResult(new ValidationGroup[]{this.page1group});
+        if(page==0) {
+            return new AggregatedValidationResult(new ValidationGroup[]{this.page});
         }
         return new AggregatedValidationResult();
     }

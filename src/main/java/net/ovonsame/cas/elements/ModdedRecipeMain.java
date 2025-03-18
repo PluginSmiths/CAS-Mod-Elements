@@ -38,14 +38,17 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
 
         String selectedType = (String) recipe_type.getSelectedItem();
         ModdedRecipeBase selectedGUI = recipe_GUIs.get(selectedType);
-        if (selectedGUI != null) {
-            recipe_panel.add(selectedGUI, selectedType);
-        }
+
+        recipe_type.addActionListener(e -> {
+            if (selectedGUI != null) {
+                recipe_panel.add(L10N.label("elementgui." + this.recipe_type.getSelectedItem() + ".desc"));
+                recipe_panel.add(selectedGUI, selectedType);
+                updateUI();
+            }
+        });
 
         recipe_container.add(recipe_panel);
         addPage(recipe_container);
-
-        recipe_type.addActionListener(e -> updateUI());
     }
 
     @Override
