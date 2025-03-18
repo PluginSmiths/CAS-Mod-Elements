@@ -69,6 +69,8 @@ public class ModdedRecipeBase extends ModElementGUI<ModdedRecipe> {
             main_panel.add(this.sound);
         }else{sound.setVisible(false);}
 
+        updateUIFields();
+        addPage(main_panel);
     }
 
     private void updateUIFields() {

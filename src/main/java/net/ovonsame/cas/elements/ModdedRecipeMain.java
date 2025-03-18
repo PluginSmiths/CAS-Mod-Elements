@@ -47,9 +47,7 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
         recipe_container.add(recipe_panel);
         addPage(recipe_container);
 
-        recipe_type.addActionListener(e -> {
-            card_layout.show(recipe_container, (String) recipe_type.getSelectedItem());
-        });
+        recipe_type.addActionListener(e -> card_layout.show(recipe_container, (String) recipe_type.getSelectedItem()));
     }
 
     @Override
