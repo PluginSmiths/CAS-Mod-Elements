@@ -1,8 +1,8 @@
 <#include "../mcitems.ftl">
 {
   "type": "farmersdelight:cooking",
-  "cookingtime": ${data.cookingtime},
-  "experience": ${data.cookingxp},
+  "cookingtime": ${data.processing_time},
+  "experience": ${data.experience},
   "ingredients": [
     <#assign ingredients = "">
     <#list data.cookinginput as element>
@@ -14,7 +14,7 @@
   ],
   "recipe_book_tab": ${data.cookingbook},
   "result": {
-    "count": ${data.count},
+    "count": ${data.amount},
     "item": "${mappedMCItemToRegistryName(data.cookingoutput)}"
   }
 }

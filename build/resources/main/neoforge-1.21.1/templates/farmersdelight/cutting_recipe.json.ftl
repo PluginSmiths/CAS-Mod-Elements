@@ -3,19 +3,19 @@
   "type": "farmersdelight:cutting",
   "ingredients": [
     {
-      "item": "${mappedMCItemToRegistryName(data.cuttinginput)}"
+      "item": "minecraft:dirt"
     }
   ],
   "result": [
     {
-      "chance": ${data.cuttingchance},
-      "count": ${data.count},
-      "item": "${mappedMCItemToRegistryName(data.cuttingoutput)}"
+      "chance": 0,
+      "count": 0,
+      "item": "minecraft:dirt"
     }
   ],
-  "sound": ${data.cuttingsound},
+  "sound": ${data.sound},
   "tool": {
     "type": "farmersdelight:tool_action",
-    "action": "${data.cuttingaction}"
+    "action": "${data.list}"
   }
 }

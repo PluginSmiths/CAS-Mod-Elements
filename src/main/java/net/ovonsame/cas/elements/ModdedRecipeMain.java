@@ -3,7 +3,6 @@ package net.ovonsame.cas.elements;
 import net.mcreator.element.parts.Sound;
 import net.mcreator.ui.MCreator;
 import net.mcreator.ui.init.L10N;
-import net.mcreator.ui.minecraft.SoundSelector;
 import net.mcreator.ui.modgui.ModElementGUI;
 import net.mcreator.ui.validation.AggregatedValidationResult;
 import net.mcreator.workspace.elements.ModElement;
@@ -15,14 +14,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
-    private final CardLayout card_layout = new CardLayout();
-    private final JPanel recipe_container = new JPanel(card_layout);
+    private final JPanel recipe_container = new JPanel(new CardLayout());
     private final JComboBox<String> recipe_type = new JComboBox<>(ModdedRecipe.recipes);
-    private ModdedRecipeBase recipe;
 
     private final Map<String, ModdedRecipeBase> recipes = new HashMap<>(
             Map.of("cutting", new CuttingRecipe(mcreator, modElement, isEditingMode()))
     );
+
+    private ModdedRecipeBase recipe;
 
     public ModdedRecipeMain(MCreator mcreator, ModElement modElement, boolean editingMode) {
         super(mcreator, modElement, editingMode);
@@ -32,25 +31,29 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
 
     @Override
     protected void initGUI() {
-        JPanel type_panel = new JPanel(new GridLayout(1, 1, 10, 2));
-        JPanel recipe_panel = new JPanel(new GridLayout(1, 2, 10, 2));
+        setLayout(new BorderLayout());
 
-        type_panel.add(L10N.label("elementgui." + this.recipe_type.getSelectedItem() + ".desc"));
+        JPanel type_panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel recipe_panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+
+        recipe_type.setBounds(20, 32, 32, 32);
+
+        type_panel.add(new JLabel("Recipe Type:"));
+        recipe_type.setVisible(true);
         type_panel.add(recipe_type);
-
-        recipe_container.add(type_panel);
-
-        recipe_type.addActionListener(e -> {
-            if ((String) recipe_type.getSelectedItem() != null) {
-                recipe_panel.add(L10N.label("elementgui." + this.recipe_type.getSelectedItem() + ".desc"));
-                recipe = recipes.get((String) recipe_type.getSelectedItem());
-                recipe_panel.add(recipe);
-                updateUI();
-            }
-        });
         recipe_type.setSelectedItem("cutting");
 
+        recipe = recipes.get((String) recipe_type.getSelectedItem());
+        recipe_panel.add(recipe);
+
+        recipe_type.addActionListener(e -> {
+            recipe_container.removeAll();
+            initGUI();
+        });
+
         recipe_container.add(recipe_panel);
+        recipe_container.add(type_panel);
+
         updateUI();
         addPage(recipe_container);
     }
@@ -63,20 +66,18 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
         selected.list.setSelectedItem(recipe.list);
         selected.experience.setValue(recipe.experience);
         selected.process_time.setValue(recipe.processing_time);
-
-        if (selected.hasSound && selected.sound != null) selected.sound.setSound(recipe.sound);
+        selected.sound.setSound(recipe.sound);
     }
 
     @Override
     public ModdedRecipe getElementFromGUI() {
         ModdedRecipe recipe = new ModdedRecipe(modElement);
+
         recipe.recipe_type = (String) this.recipe_type.getSelectedItem();
-        if(recipe_type.getSelectedItem() != null) {
-            recipe.sound = (Sound) this.recipe.sound.getSound();
-            recipe.experience = (int) this.recipe.experience.getValue();
-            recipe.processing_time = (int) this.recipe.process_time.getValue();
-            recipe.list = (String) this.recipe.list.getSelectedItem();
-        }
+        recipe.sound = this.recipe.hasSound ? (Sound) this.recipe.sound.getSound() : new Sound(mcreator.getWorkspace(), "grass");
+        recipe.experience = (this.recipe.hasExperience ? (int) this.recipe.experience.getValue() : 0);
+        recipe.processing_time = this.recipe.hasProcessTime ?(int) this.recipe.process_time.getValue() : 0;
+        recipe.list = this.recipe.hasList ? (String) this.recipe.list.getSelectedItem() : "";
         return recipe;
     }
 

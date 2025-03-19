@@ -2,12 +2,12 @@ templates:
   - template: farmersdelight/cutting_recipe.json.ftl
     writer: json
     name: "@MODDATAROOT/recipes/cutting/@registryname.json"
-    condition: "recipeType %= Cutting"
+    condition: "recipe_type %= Cutting"
     
   - template: farmersdelight/cooking_recipe.json.ftl
     writer: json
     name: "@MODDATAROOT/recipes/cooking/@registryname.json"
-    condition: "recipeType %= Cooking"
+    condition: "recipe_type %= Cooking"
     
 
 

@@ -34,36 +34,38 @@ public class ModdedRecipeBase extends JPanel {
         this.list = new JComboBox<>(values);
 
         ValidationGroup page = new ValidationGroup();
-        CardLayout recipes_panel_layout = new CardLayout();
-        JPanel main_panel = new JPanel(recipes_panel_layout);
-
-        main_panel.add(L10N.label("elementgui." + this.id + ".recipe"));
+        JPanel main_panel = new JPanel(new CardLayout());
 
         if (hasProcessTime) {
             main_panel.add(L10N.label("elementgui." + this.id + ".process_time"));
             main_panel.add(this.process_time);
             process_time.setBounds(48, 32, 32, 32);
+            process_time.setVisible(true);
         }else{process_time.setVisible(false);}
 
         if (hasExperience) {
+            experience.setBounds(48, 32+(32)+(8), 32, 32);
+            experience.setVisible(true);
             main_panel.add(L10N.label("elementgui." + this.id + ".experience"));
             main_panel.add(this.experience);
-            experience.setBounds(48, 32+(32)+(8), 32, 32);
         }else{experience.setVisible(false);}
 
         if (hasList) {
             main_panel.add(L10N.label("elementgui." + this.id + ".list"));
             main_panel.add(this.list);
             list.setBounds(48, 32+(32*2)+(8*2), 32, 32);
+            list.setVisible(true);
         }else{list.setVisible(false);}
 
         if (hasSound) {
             main_panel.add(L10N.label("elementgui." + this.id + ".sound"));
             main_panel.add(this.sound);
             sound.setBounds(48, 32+(32*3)+(8*3), 32, 32);
+            sound.setVisible(true);
         }else{sound.setVisible(false);}
 
         setPreferredSize(new Dimension(256, 256));
+        this.add(main_panel);
     }
 
     @Override public void setEnabled(boolean enabled) {
