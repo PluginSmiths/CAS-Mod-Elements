@@ -33,39 +33,44 @@ public class ModdedRecipeBase extends JPanel {
         this.experience = new JSpinner(new SpinnerNumberModel(1, 1, 500, 1));
         this.list = new JComboBox<>(values);
 
-        ValidationGroup page = new ValidationGroup();
-        JPanel main_panel = new JPanel(new CardLayout());
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.anchor = GridBagConstraints.WEST;
 
         if (hasProcessTime) {
-            main_panel.add(L10N.label("elementgui." + this.id + ".process_time"));
-            main_panel.add(this.process_time);
-            process_time.setBounds(48, 32, 32, 32);
-            process_time.setVisible(true);
+            add(L10N.label("elementgui." + id + ".process_time"), gbc);
+            gbc.gridx = 1;
+            add(process_time, gbc);
+            gbc.gridx = 0;
+            gbc.gridy++;
         }else{process_time.setVisible(false);}
 
         if (hasExperience) {
-            experience.setBounds(48, 32+(32)+(8), 32, 32);
-            experience.setVisible(true);
-            main_panel.add(L10N.label("elementgui." + this.id + ".experience"));
-            main_panel.add(this.experience);
+            add(L10N.label("elementgui." + id + ".experience"), gbc);
+            gbc.gridx = 1;
+            add(experience, gbc);
+            gbc.gridx = 0;
+            gbc.gridy++;
         }else{experience.setVisible(false);}
 
         if (hasList) {
-            main_panel.add(L10N.label("elementgui." + this.id + ".list"));
-            main_panel.add(this.list);
-            list.setBounds(48, 32+(32*2)+(8*2), 32, 32);
-            list.setVisible(true);
+            add(L10N.label("elementgui." + id + ".list"), gbc);
+            gbc.gridx = 1;
+            add(list, gbc);
+            gbc.gridx = 0;
+            gbc.gridy++;
         }else{list.setVisible(false);}
 
         if (hasSound) {
-            main_panel.add(L10N.label("elementgui." + this.id + ".sound"));
-            main_panel.add(this.sound);
-            sound.setBounds(48, 32+(32*3)+(8*3), 32, 32);
-            sound.setVisible(true);
+            add(L10N.label("elementgui." + id + ".sound"), gbc);
+            gbc.gridx = 1;
+            add(sound, gbc);
         }else{sound.setVisible(false);}
 
         setPreferredSize(new Dimension(256, 256));
-        this.add(main_panel);
     }
 
     @Override public void setEnabled(boolean enabled) {

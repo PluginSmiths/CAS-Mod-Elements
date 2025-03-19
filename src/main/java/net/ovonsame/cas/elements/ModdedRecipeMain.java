@@ -2,7 +2,6 @@ package net.ovonsame.cas.elements;
 
 import net.mcreator.element.parts.Sound;
 import net.mcreator.ui.MCreator;
-import net.mcreator.ui.init.L10N;
 import net.mcreator.ui.modgui.ModElementGUI;
 import net.mcreator.ui.validation.AggregatedValidationResult;
 import net.mcreator.workspace.elements.ModElement;
@@ -31,18 +30,13 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
 
     @Override
     protected void initGUI() {
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(10, 10));
 
-        JPanel type_panel = new JPanel(new CardLayout());
-        JPanel recipe_panel = new JPanel(new CardLayout());
+        JPanel type_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel recipe_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        type_panel.setBounds(20, 32, 32, 32);
-        recipe_type.setBounds(20, 200, 32, 32);
-
-        type_panel.add(new JLabel("Recipe Type:"));
-        recipe_type.setVisible(true);
-        type_panel.add(recipe_type);
         recipe_type.setSelectedItem("cutting");
+        type_panel.add(recipe_type);
 
         recipe = recipes.get((String) recipe_type.getSelectedItem());
         recipe_panel.add(recipe);
@@ -57,8 +51,6 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
 
         updateUI();
         addPage(recipe_container);
-
-        setPreferredSize(new Dimension(256, 256));
     }
 
     @Override
