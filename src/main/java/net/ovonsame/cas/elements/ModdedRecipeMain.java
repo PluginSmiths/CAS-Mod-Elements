@@ -33,10 +33,11 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
     protected void initGUI() {
         setLayout(new BorderLayout());
 
-        JPanel type_panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JPanel recipe_panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel type_panel = new JPanel(new CardLayout());
+        JPanel recipe_panel = new JPanel(new CardLayout());
 
-        recipe_type.setBounds(20, 32, 32, 32);
+        type_panel.setBounds(20, 32, 32, 32);
+        recipe_type.setBounds(20, 200, 32, 32);
 
         type_panel.add(new JLabel("Recipe Type:"));
         recipe_type.setVisible(true);
@@ -56,6 +57,8 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
 
         updateUI();
         addPage(recipe_container);
+
+        setPreferredSize(new Dimension(256, 256));
     }
 
     @Override
