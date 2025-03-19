@@ -33,25 +33,37 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
         setLayout(new BorderLayout(10, 10));
 
         JPanel type_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JPanel recipe_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel recipe_panel = new JPanel(new CardLayout());
+        JPanel main = new JPanel(new BorderLayout());
 
         recipe_type.setSelectedItem("cutting");
+        recipe = recipes.get((String) recipe_type.getSelectedItem());
+
+        type_panel.add(new JLabel("Recipe Type:"));
         type_panel.add(recipe_type);
 
-        recipe = recipes.get((String) recipe_type.getSelectedItem());
-        recipe_panel.add(recipe);
+        for (Map.Entry<String, ModdedRecipeBase> entry : recipes.entrySet()) {
+            recipe_panel.add(entry.getValue(), entry.getKey());
+        }
+
+        CardLayout cardLayout = (CardLayout) recipe_panel.getLayout();
+        cardLayout.show(recipe_panel, (String) recipe_type.getSelectedItem());
 
         recipe_type.addActionListener(e -> {
-            recipe_container.removeAll();
-            initGUI();
+            cardLayout.show(recipe_panel, (String) recipe_type.getSelectedItem());
+            recipe = recipes.get((String) recipe_type.getSelectedItem());
+            recipe_panel.revalidate();
+            recipe_panel.repaint();
         });
 
-        recipe_container.add(recipe_panel);
-        recipe_container.add(type_panel);
+        main.add(type_panel, BorderLayout.NORTH);
+        main.add(recipe_panel, BorderLayout.CENTER);
+        recipe_container.add(main);
 
         updateUI();
         addPage(recipe_container);
     }
+
 
     @Override
     public void openInEditingMode(ModdedRecipe recipe) {
@@ -69,10 +81,10 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
         ModdedRecipe recipe = new ModdedRecipe(modElement);
 
         recipe.recipe_type = (String) this.recipe_type.getSelectedItem();
-        recipe.sound = this.recipe.hasSound ? (Sound) this.recipe.sound.getSound() : new Sound(mcreator.getWorkspace(), "grass");
-        recipe.experience = (this.recipe.hasExperience ? (int) this.recipe.experience.getValue() : 0);
-        recipe.processing_time = this.recipe.hasProcessTime ?(int) this.recipe.process_time.getValue() : 0;
-        recipe.list = this.recipe.hasList ? (String) this.recipe.list.getSelectedItem() : "";
+        recipe.sound = (Sound) this.recipe.sound.getSound();
+        recipe.experience = (int) this.recipe.experience.getValue();
+        recipe.processing_time = (int) this.recipe.process_time.getValue();
+        recipe.list = (String) this.recipe.list.getSelectedItem();
         return recipe;
     }
 

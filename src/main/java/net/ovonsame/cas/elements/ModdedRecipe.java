@@ -15,7 +15,7 @@ public class ModdedRecipe extends GeneratableElement {
 
     public int processing_time;
     public int experience;
-    @ModElementReference public Sound sound;
+    public Sound sound;
 
     public String list;
 
