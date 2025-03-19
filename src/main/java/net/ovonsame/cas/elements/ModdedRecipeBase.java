@@ -1,36 +1,25 @@
 package net.ovonsame.cas.elements;
 
-import net.mcreator.element.parts.Sound;
 import net.mcreator.ui.MCreator;
 import net.mcreator.ui.init.L10N;
 import net.mcreator.ui.minecraft.SoundSelector;
-import net.mcreator.ui.modgui.ModElementGUI;
-import net.mcreator.ui.validation.AggregatedValidationResult;
 import net.mcreator.ui.validation.ValidationGroup;
-import net.mcreator.workspace.elements.ModElement;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ModdedRecipeBase extends ModElementGUI<ModdedRecipe> {
-    private final ValidationGroup page = new ValidationGroup();
-
-    private final CardLayout recipes_panel_layout = new CardLayout();
-    private final JPanel main_panel = new JPanel(recipes_panel_layout);
-
-    private final JSpinner experience = new JSpinner(new SpinnerNumberModel(1, 1, 500, 1));
-    private final JSpinner process_time = new JSpinner(new SpinnerNumberModel(1, 1, 200, 1));
-    private final SoundSelector sound = new SoundSelector(mcreator);
+public class ModdedRecipeBase extends JPanel {
+    public final JSpinner experience;
+    public final JSpinner process_time;
+    public final SoundSelector sound;
 
     public final String[] values;
-    private JComboBox<String> list = new JComboBox<>(new String[]{});
+    public final JComboBox<String> list;
 
     public final boolean hasSound, hasExperience, hasProcessTime, hasList;
     public final String id;
 
-    public ModdedRecipeBase(MCreator mcreator, ModElement modElement, boolean editingMode,
-                            boolean hasSound, boolean hasExperience, boolean hasProcessTime, boolean hasList, String id, String[] values) {
-        super(mcreator, modElement, editingMode);
+    public ModdedRecipeBase(MCreator mcreator, boolean hasSound, boolean hasExperience, boolean hasProcessTime, boolean hasList, String id, String[] values) {
 
         this.hasSound = hasSound;
         this.hasExperience = hasExperience;
@@ -39,67 +28,49 @@ public class ModdedRecipeBase extends ModElementGUI<ModdedRecipe> {
         this.id = id;
         this.values = values;
 
-        this.initGUI();
-        super.finalizeGUI();
+        this.process_time = new JSpinner(new SpinnerNumberModel(1, 1, 200, 1));
+        this.sound = new SoundSelector(mcreator);
+        this.experience = new JSpinner(new SpinnerNumberModel(1, 1, 500, 1));
+        this.list = new JComboBox<>(values);
 
-    }
+        ValidationGroup page = new ValidationGroup();
+        CardLayout recipes_panel_layout = new CardLayout();
+        JPanel main_panel = new JPanel(recipes_panel_layout);
 
-    @Override
-    protected void initGUI() {
-        list = new JComboBox<>(values);
         main_panel.add(L10N.label("elementgui." + this.id + ".recipe"));
 
         if (hasProcessTime) {
             main_panel.add(L10N.label("elementgui." + this.id + ".process_time"));
             main_panel.add(this.process_time);
+            process_time.setBounds(48, 32, 32, 32);
         }else{process_time.setVisible(false);}
 
         if (hasExperience) {
             main_panel.add(L10N.label("elementgui." + this.id + ".experience"));
             main_panel.add(this.experience);
+            experience.setBounds(48, 32+(32)+(8), 32, 32);
         }else{experience.setVisible(false);}
 
         if (hasList) {
             main_panel.add(L10N.label("elementgui." + this.id + ".list"));
             main_panel.add(this.list);
+            list.setBounds(48, 32+(32*2)+(8*2), 32, 32);
         }else{list.setVisible(false);}
 
         if (hasSound) {
             main_panel.add(L10N.label("elementgui." + this.id + ".sound"));
             main_panel.add(this.sound);
+            sound.setBounds(48, 32+(32*3)+(8*3), 32, 32);
         }else{sound.setVisible(false);}
 
-        updateUIFields();
-        addPage(main_panel);
+        setPreferredSize(new Dimension(256, 256));
     }
 
-    private void updateUIFields() {
-        recipes_panel_layout.show(main_panel, this.id);
-    }
-
-    @Override
-    protected AggregatedValidationResult validatePage(int page) {
-        if(page==0) {
-            return new AggregatedValidationResult(new ValidationGroup[]{this.page});
-        }
-        return new AggregatedValidationResult();
-    }
-
-    @Override
-    public void openInEditingMode(ModdedRecipe recipe) {
-        list.setSelectedItem(recipe.list);
-        experience.setValue(recipe.experience);
-        process_time.setValue(recipe.processing_time);
-        if (hasSound && sound != null) sound.setSound(recipe.sound);
-    }
-
-    @Override
-    public ModdedRecipe getElementFromGUI() {
-        ModdedRecipe recipe = new ModdedRecipe(modElement);
-        recipe.sound = (Sound) sound.getSound();
-        recipe.experience = (int) experience.getValue();
-        recipe.processing_time = (int) process_time.getValue();
-        recipe.list = (String) list.getSelectedItem();
-        return recipe;
+    @Override public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        experience.setEnabled(enabled);
+        process_time.setEnabled(enabled);
+        list.setEnabled(enabled);
+        sound.setEnabled(enabled);
     }
 }
