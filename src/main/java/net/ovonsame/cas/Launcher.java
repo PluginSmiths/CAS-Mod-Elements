@@ -3,7 +3,7 @@ package net.ovonsame.cas;
 import net.mcreator.plugin.JavaPlugin;
 import net.mcreator.plugin.Plugin;
 import net.mcreator.plugin.events.PreGeneratorsLoadingEvent;
-import net.ovonsame.cas.parts.PluginElementTypes;
+import net.ovonsame.cas.elements.PluginElementTypes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

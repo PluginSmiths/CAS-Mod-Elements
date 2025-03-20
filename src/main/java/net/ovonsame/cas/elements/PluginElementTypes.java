@@ -1,7 +1,6 @@
-package net.ovonsame.cas.parts;
+package net.ovonsame.cas.elements;
 
 import net.mcreator.element.ModElementType;
-import net.ovonsame.cas.elements.*;
 
 import static net.mcreator.element.ModElementTypeLoader.register;
 

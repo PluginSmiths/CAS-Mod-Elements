@@ -2,10 +2,12 @@ package net.ovonsame.cas.elements;
 
 import net.mcreator.element.parts.Sound;
 import net.mcreator.ui.MCreator;
+import net.mcreator.ui.init.L10N;
 import net.mcreator.ui.modgui.ModElementGUI;
 import net.mcreator.ui.validation.AggregatedValidationResult;
 import net.mcreator.workspace.elements.ModElement;
-import net.ovonsame.cas.recipes.CuttingRecipe;
+
+import net.ovonsame.cas.recipes.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,8 +19,10 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
     private final JComboBox<String> recipe_type = new JComboBox<>(ModdedRecipe.recipes);
 
     private final Map<String, ModdedRecipeBase> recipes = new HashMap<>(
-            Map.of("cutting", new CuttingRecipe(mcreator, modElement, isEditingMode()))
-    );
+            Map.ofEntries(
+                    Map.entry("cutting", new CuttingRecipe(mcreator)),
+                    Map.entry("cooking", new CookingRecipe(mcreator))
+            ));
 
     private ModdedRecipeBase recipe;
 
@@ -39,7 +43,7 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
         recipe_type.setSelectedItem("cutting");
         recipe = recipes.get((String) recipe_type.getSelectedItem());
 
-        type_panel.add(new JLabel("Recipe Type:"));
+        type_panel.add(L10N.label("elementgui.modded_recipe.recipe_type"));
         type_panel.add(recipe_type);
 
         for (Map.Entry<String, ModdedRecipeBase> entry : recipes.entrySet()) {

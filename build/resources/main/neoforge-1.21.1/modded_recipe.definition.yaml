@@ -1,13 +1,13 @@
 templates:
-  - template: farmersdelight/cutting_recipe.json.ftl
+  - template: modded_recipe/cutting_recipe.json.ftl
     writer: json
     name: "@MODDATAROOT/recipes/cutting/@registryname.json"
-    condition: "recipe_type %= Cutting"
+    condition: "recipe_type %= cutting"
     
-  - template: farmersdelight/cooking_recipe.json.ftl
+  - template: modded_recipe/cooking_recipe.json.ftl
     writer: json
     name: "@MODDATAROOT/recipes/cooking/@registryname.json"
-    condition: "recipe_type %= Cooking"
+    condition: "recipe_type %= cooking"
     
 
 

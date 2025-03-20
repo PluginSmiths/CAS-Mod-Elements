@@ -1,9 +1,10 @@
 package net.ovonsame.cas.elements;
 
 import net.mcreator.ui.MCreator;
+import net.mcreator.ui.component.ImagePanel;
 import net.mcreator.ui.init.L10N;
+import net.mcreator.ui.init.UIRES;
 import net.mcreator.ui.minecraft.SoundSelector;
-import net.mcreator.ui.validation.ValidationGroup;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +19,8 @@ public class ModdedRecipeBase extends JPanel {
 
     public final boolean hasSound, hasExperience, hasProcessTime, hasList;
     public final String id;
+
+    public final ImagePanel image_panel;
 
     public ModdedRecipeBase(MCreator mcreator, boolean hasSound, boolean hasExperience, boolean hasProcessTime, boolean hasList, String id, String[] values) {
 
@@ -41,7 +44,7 @@ public class ModdedRecipeBase extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
 
         if (hasProcessTime) {
-            add(L10N.label("elementgui." + id + ".process_time"), gbc);
+            add(L10N.label("elementgui.modded_recipe." + id + ".process_time"), gbc);
             gbc.gridx = 1;
             add(process_time, gbc);
             gbc.gridx = 0;
@@ -49,7 +52,7 @@ public class ModdedRecipeBase extends JPanel {
         }else{process_time.setVisible(false);}
 
         if (hasExperience) {
-            add(L10N.label("elementgui." + id + ".experience"), gbc);
+            add(L10N.label("elementgui.modded_recipe." + id + ".experience"), gbc);
             gbc.gridx = 1;
             add(experience, gbc);
             gbc.gridx = 0;
@@ -57,7 +60,7 @@ public class ModdedRecipeBase extends JPanel {
         }else{experience.setVisible(false);}
 
         if (hasList) {
-            add(L10N.label("elementgui." + id + ".list"), gbc);
+            add(L10N.label("elementgui.modded_recipe." + id + ".list"), gbc);
             gbc.gridx = 1;
             add(list, gbc);
             gbc.gridx = 0;
@@ -65,10 +68,20 @@ public class ModdedRecipeBase extends JPanel {
         }else{list.setVisible(false);}
 
         if (hasSound) {
-            add(L10N.label("elementgui." + id + ".sound"), gbc);
+            add(L10N.label("elementgui.modded_recipe." + id + ".sound"), gbc);
             gbc.gridx = 1;
             add(sound, gbc);
+            gbc.gridx = 0;
+            gbc.gridy++;
         }else{sound.setVisible(false);}
+
+        image_panel = new ImagePanel(UIRES.get("recipe." + this.id).getImage());
+        image_panel.fitToImage();
+        image_panel.setLayout(new GridBagLayout());
+
+        add(image_panel, gbc);
+        gbc.gridx = -5;
+        gbc.gridy = 0;
 
         setPreferredSize(new Dimension(256, 256));
     }

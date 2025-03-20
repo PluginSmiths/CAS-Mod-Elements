@@ -4,7 +4,6 @@ import net.mcreator.element.GeneratableElement;
 import net.mcreator.element.parts.MItemBlock;
 import net.mcreator.element.parts.Sound;
 import net.mcreator.workspace.elements.ModElement;
-import net.mcreator.workspace.references.ModElementReference;
 
 import java.lang.*;
 
