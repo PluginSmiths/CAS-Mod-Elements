@@ -5,6 +5,6 @@ import net.ovonsame.cas.elements.ModdedRecipeBase;
 
 public class CookingRecipe extends ModdedRecipeBase {
     public CookingRecipe(MCreator mcreator) {
-        super(mcreator, false, true, true, true, "cooking", new String[]{"meals", "drinks", "misc"});
+        super(mcreator, false, true, true, true, "cooking", new String[]{"Meals", "Drinks", "Misc"});
     }
 }

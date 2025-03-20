@@ -1,12 +1,14 @@
 package net.ovonsame.cas.elements;
 
 import net.mcreator.element.parts.Sound;
+import net.mcreator.minecraft.ElementUtil;
 import net.mcreator.ui.MCreator;
 import net.mcreator.ui.init.L10N;
 import net.mcreator.ui.modgui.ModElementGUI;
 import net.mcreator.ui.validation.AggregatedValidationResult;
 import net.mcreator.workspace.elements.ModElement;
 
+import net.ovonsame.cas.parts.RecipeResultEntry;
 import net.ovonsame.cas.recipes.*;
 
 import javax.swing.*;
@@ -17,11 +19,23 @@ import java.util.Map;
 public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
     private final JPanel recipe_container = new JPanel(new CardLayout());
     private final JComboBox<String> recipe_type = new JComboBox<>(ModdedRecipe.recipes);
+    private final RecipeResultEntry result = new RecipeResultEntry(this, null, mcreator, ElementUtil::loadBlocksAndItemsAndTags);
 
     private final Map<String, ModdedRecipeBase> recipes = new HashMap<>(
             Map.ofEntries(
                     Map.entry("cutting", new CuttingRecipe(mcreator)),
-                    Map.entry("cooking", new CookingRecipe(mcreator))
+                    Map.entry("cooking", new CookingRecipe(mcreator)),
+                    Map.entry("compacting", new CompactingRecipe(mcreator)),
+                    Map.entry("compacting", new CompactingRecipe(mcreator)),
+                    Map.entry("compacting", new CompactingRecipe(mcreator)),
+                    Map.entry("compacting", new CompactingRecipe(mcreator)),
+                    Map.entry("compacting", new CompactingRecipe(mcreator)),
+                    Map.entry("compacting", new CompactingRecipe(mcreator)),
+                    Map.entry("compacting", new CompactingRecipe(mcreator)),
+                    Map.entry("compacting", new CompactingRecipe(mcreator)),
+                    Map.entry("compacting", new CompactingRecipe(mcreator)),
+                    Map.entry("compacting", new CompactingRecipe(mcreator)),
+                    Map.entry("compacting", new CompactingRecipe(mcreator))
             ));
 
     private ModdedRecipeBase recipe;
@@ -39,6 +53,8 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
         JPanel type_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JPanel recipe_panel = new JPanel(new CardLayout());
         JPanel main = new JPanel(new BorderLayout());
+
+        recipe_panel.add(result);
 
         recipe_type.setSelectedItem("cutting");
         recipe = recipes.get((String) recipe_type.getSelectedItem());
