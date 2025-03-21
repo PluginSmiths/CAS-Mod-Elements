@@ -1,4 +1,4 @@
-package net.ovonsame.cas.elements;
+package net.ovonsame.cas.elements.ModdedRecipe;
 
 import net.mcreator.ui.MCreator;
 import net.mcreator.ui.component.ImagePanel;
@@ -31,10 +31,10 @@ public class ModdedRecipeBase extends JPanel {
         this.id = id;
         this.values = values;
 
-        this.process_time = new JSpinner(new SpinnerNumberModel(1, 1, 200, 1));
+        this.process_time = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
         this.sound = new SoundSelector(mcreator);
-        this.experience = new JSpinner(new SpinnerNumberModel(1, 1, 500, 1));
-        this.list = new JComboBox<>(values);
+        this.experience = new JSpinner(new SpinnerNumberModel(1, 1, 100000, 1));
+        this.list = hasList ?new JComboBox<>(values) : new JComboBox<>(new String[0]);
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -74,7 +74,7 @@ public class ModdedRecipeBase extends JPanel {
             gbc.gridx = 0;
             gbc.gridy++;
         }else{sound.setVisible(false);}
-
+        
         image_panel = new ImagePanel(UIRES.get("recipe." + this.id).getImage());
         image_panel.fitToImage();
         image_panel.setLayout(new GridBagLayout());

@@ -1,14 +1,14 @@
-package net.ovonsame.cas.elements;
+package net.ovonsame.cas.elements.ModdedRecipe;
 
 import net.mcreator.element.parts.Sound;
-import net.mcreator.minecraft.ElementUtil;
 import net.mcreator.ui.MCreator;
 import net.mcreator.ui.init.L10N;
 import net.mcreator.ui.modgui.ModElementGUI;
 import net.mcreator.ui.validation.AggregatedValidationResult;
 import net.mcreator.workspace.elements.ModElement;
 
-import net.ovonsame.cas.parts.RecipeResultEntry;
+import net.ovonsame.cas.parts.Ingredient.IngredientList;
+import net.ovonsame.cas.parts.Result.ResultList;
 import net.ovonsame.cas.recipes.*;
 
 import javax.swing.*;
@@ -17,9 +17,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
-    private final JPanel recipe_container = new JPanel(new CardLayout());
+    private final JPanel pane1 = new JPanel(new BorderLayout());
+    private final JPanel pane2 = new JPanel(new BorderLayout());
+    private final JPanel pane3 = new JPanel(new BorderLayout());
+
     private final JComboBox<String> recipe_type = new JComboBox<>(ModdedRecipe.recipes);
-    private final RecipeResultEntry result = new RecipeResultEntry(this, null, mcreator, ElementUtil::loadBlocksAndItemsAndTags);
+    private final ResultList result = new ResultList(mcreator, this);
+    private final IngredientList ingredient = new IngredientList(mcreator, this);
 
     private final Map<String, ModdedRecipeBase> recipes = new HashMap<>(
             Map.ofEntries(
@@ -53,9 +57,6 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
 
         JPanel type_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JPanel recipe_panel = new JPanel(new CardLayout());
-        JPanel main = new JPanel(new BorderLayout());
-
-        recipe_panel.add(result);
 
         recipe_type.setSelectedItem("cutting");
         recipe = recipes.get((String) recipe_type.getSelectedItem());
@@ -77,12 +78,16 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
             recipe_panel.repaint();
         });
 
-        main.add(type_panel, BorderLayout.NORTH);
-        main.add(recipe_panel, BorderLayout.CENTER);
-        recipe_container.add(main);
+        pane1.add(type_panel, BorderLayout.NORTH);
+        pane1.add(recipe_panel, BorderLayout.CENTER);
+
+        pane2.add(ingredient, BorderLayout.CENTER);
+        pane3.add(result, BorderLayout.CENTER);
 
         updateUI();
-        addPage(recipe_container);
+        addPage(L10N.t("elementgui.modded_recipe.main_page"), pane1);
+        addPage(L10N.t("elementgui.modded_recipe.results_page"), pane2);
+        addPage(L10N.t("elementgui.modded_recipe.ingredients_page"), pane3);
     }
 
 
@@ -95,6 +100,12 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
         selected.experience.setValue(recipe.experience);
         selected.process_time.setValue(recipe.processing_time);
         selected.sound.setSound(recipe.sound);
+
+        result.removeAll();
+        result.setEntries(recipe.result);
+
+        ingredient.removeAll();
+        ingredient.setEntries(recipe.ingredient);
     }
 
     @Override
@@ -106,6 +117,8 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
         recipe.experience = (int) this.recipe.experience.getValue();
         recipe.processing_time = (int) this.recipe.process_time.getValue();
         recipe.list = (String) this.recipe.list.getSelectedItem();
+        recipe.result = this.result.getEntries();
+        recipe.ingredient = this.ingredient.getEntries();
         return recipe;
     }
 

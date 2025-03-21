@@ -25,6 +25,7 @@ dependencies {
     }
     implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
     implementation 'jakarta.annotation:jakarta.annotation-api:3.0.0'
+    implementation 'org.json:json:20240303'
 }
 
 tasks.jar {

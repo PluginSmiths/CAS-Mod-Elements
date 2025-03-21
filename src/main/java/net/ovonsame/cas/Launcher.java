@@ -16,5 +16,4 @@ public class Launcher extends JavaPlugin {
         addListener(PreGeneratorsLoadingEvent.class, e -> PluginElementTypes.load());
         LOG.info("Creating Addons Support plugin was loaded");
     }
-
 }

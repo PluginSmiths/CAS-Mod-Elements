@@ -1,7 +1,7 @@
 package net.ovonsame.cas.recipes;
 
 import net.mcreator.ui.MCreator;
-import net.ovonsame.cas.elements.ModdedRecipeBase;
+import net.ovonsame.cas.elements.ModdedRecipe.ModdedRecipeBase;
 
 public class SandpaperPolishingRecipe extends ModdedRecipeBase {
     public SandpaperPolishingRecipe(MCreator mCreator) {

@@ -8,6 +8,63 @@ templates:
     writer: json
     name: "@MODDATAROOT/recipes/cooking/@registryname.json"
     condition: "recipe_type %= cooking"
-    
 
+  - template: modded_recipe/compacting_recipe.json.ftl
+    writer: json
+    name: "@MODDATAROOT/recipes/compacting/@registryname.json"
+    condition: "recipe_type %= compacting"
 
+  - template: modded_recipe/crushing_recipe.json.ftl
+    writer: json
+    name: "@MODDATAROOT/recipes/crushing/@registryname.json"
+    condition: "recipe_type %= crushing"
+
+  - template: modded_recipe/deploying_recipe.json.ftl
+    writer: json
+    name: "@MODDATAROOT/recipes/deploying/@registryname.json"
+    condition: "recipe_type %= deploying"
+
+  - template: modded_recipe/emptying_recipe.json.ftl
+    writer: json
+    name: "@MODDATAROOT/recipes/emptying/@registryname.json"
+    condition: "recipe_type %= emptying"
+
+  - template: modded_recipe/filling_recipe.json.ftl
+    writer: json
+    name: "@MODDATAROOT/recipes/filling/@registryname.json"
+    condition: "recipe_type %= filling"
+
+  - template: modded_recipe/haunting_recipe.json.ftl
+    writer: json
+    name: "@MODDATAROOT/recipes/haunting/@registryname.json"
+    condition: "recipe_type %= haunting"
+
+  - template: modded_recipe/item_application_recipe.json.ftl
+    writer: json
+    name: "@MODDATAROOT/recipes/item_application/@registryname.json"
+    condition: "recipe_type %= item_application"
+
+  - template: modded_recipe/milling_recipe.json.ftl
+    writer: json
+    name: "@MODDATAROOT/recipes/milling/@registryname.json"
+    condition: "recipe_type %= milling"
+
+  - template: modded_recipe/mixing_recipe.json.ftl
+    writer: json
+    name: "@MODDATAROOT/recipes/mixing/@registryname.json"
+    condition: "recipe_type %= mixing"
+
+  - template: modded_recipe/pressing_recipe.json.ftl
+    writer: json
+    name: "@MODDATAROOT/recipes/pressing/@registryname.json"
+    condition: "recipe_type %= pressing"
+
+  - template: modded_recipe/sandpaper_polishing_recipe.json.ftl
+    writer: json
+    name: "@MODDATAROOT/recipes/sandpaper_polishing/@registryname.json"
+    condition: "recipe_type %= sandpaper_polishing"
+
+  - template: modded_recipe/splashing_recipe.json.ftl
+    writer: json
+    name: "@MODDATAROOT/recipes/splashing/@registryname.json"
+    condition: "recipe_type %= splashing"

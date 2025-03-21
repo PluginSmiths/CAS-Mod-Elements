@@ -1,6 +1,8 @@
 package net.ovonsame.cas.elements;
 
 import net.mcreator.element.ModElementType;
+import net.ovonsame.cas.elements.ModdedRecipe.ModdedRecipe;
+import net.ovonsame.cas.elements.ModdedRecipe.ModdedRecipeMain;
 
 import static net.mcreator.element.ModElementTypeLoader.register;
 
