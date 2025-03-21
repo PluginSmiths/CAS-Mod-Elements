@@ -28,19 +28,7 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
     private final Map<String, ModdedRecipeBase> recipes = new HashMap<>(
             Map.ofEntries(
                     Map.entry("cutting", new CuttingRecipe(mcreator)),
-                    Map.entry("cooking", new CookingRecipe(mcreator)),
-                    Map.entry("compacting", new CompactingRecipe(mcreator)),
-                    Map.entry("crushing", new CrushingRecipe(mcreator)),
-                    Map.entry("deploying", new DeployingRecipe(mcreator)),
-                    Map.entry("emptying", new EmptyingRecipe(mcreator)),
-                    Map.entry("filling", new FillingRecipe(mcreator)),
-                    Map.entry("haunting", new HauntingRecipe(mcreator)),
-                    Map.entry("item_application", new ItemApplicationRecipe(mcreator)),
-                    Map.entry("milling", new MillingRecipe(mcreator)),
-                    Map.entry("mixing", new MixingRecipe(mcreator)),
-                    Map.entry("pressing", new PressingRecipe(mcreator)),
-                    Map.entry("sandpaper_polishing", new SandpaperPolishingRecipe(mcreator)),
-                    Map.entry("splashing", new SplashingRecipe(mcreator))
+                    Map.entry("cooking", new CookingRecipe(mcreator))
             ));
 
     private ModdedRecipeBase recipe;
@@ -78,7 +66,7 @@ public class ModdedRecipeMain extends ModElementGUI<ModdedRecipe> {
             recipe_panel.repaint();
         });
 
-        pane1.add(type_panel, BorderLayout.NORTH);
+        pane1.add(type_panel, BorderLayout.WEST);
         pane1.add(recipe_panel, BorderLayout.CENTER);
 
         pane2.add(ingredient, BorderLayout.CENTER);
