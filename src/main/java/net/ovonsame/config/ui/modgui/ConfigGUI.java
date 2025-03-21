@@ -11,11 +11,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import net.ovonsame.cas.config.blockly.BlocklyToConfig;
-import net.ovonsame.cas.config.blockly.data.PluginToolboxType;
-import net.ovonsame.cas.config.element.types.Config;
-import net.ovonsame.cas.config.ui.blockly.PluginBlocklyEditorType;
-import net.ovonsame.cas.config.ui.validation.validators.ConfigFileNameValidator;
+import net.ovonsame.config.blockly.BlocklyToConfig;
+import net.ovonsame.config.blockly.data.PluginToolboxType;
+import net.ovonsame.config.element.types.Config;
+import net.ovonsame.config.ui.blockly.PluginBlocklyEditorType;
+import net.ovonsame.config.ui.validation.validators.ConfigFileNameValidator;
 import net.mcreator.blockly.BlocklyCompileNote;
 import net.mcreator.blockly.data.BlocklyLoader;
 import net.mcreator.blockly.data.ToolboxBlock;
@@ -126,7 +126,7 @@ public class ConfigGUI extends ModElementGUI<Config> implements IBlocklyPanelHol
       this.fileExtension.setSelectedItem(config.fileExtension);
       this.blocklyPanel.setXML(config.configsxml);
       this.blocklyPanel.addTaskToRunAfterLoaded(() -> {
-         this.blocklyPanel.clearWorkspace();
+         this.blocklyPanel.();
          this.blocklyPanel.setXML(config.configsxml);
          this.regenerateConfigs();
       });
